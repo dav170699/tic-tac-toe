@@ -9,6 +9,9 @@
 logs/*.log
 !logs/.gitkeep
 
+# Claude Code internal files
+.claude/
+
 # Python
 __pycache__/
 *.py[cod]
