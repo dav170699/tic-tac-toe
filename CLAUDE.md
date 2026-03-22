@@ -13,12 +13,18 @@ powershell -command "Start-Process 'C:\Users\david\Documents\claude projets\tict
 
 ## Git & GitHub
 
-After every meaningful change, commit and push:
+**Commit and push after every meaningful change** — do not batch up work. This ensures nothing is lost and the GitHub history always reflects current progress.
+
 ```bash
 git add <files>
 git commit -m "concise description of what changed and why"
 git push
 ```
+
+Commit message rules:
+- Use the imperative mood ("Add", "Fix", "Update", not "Added" or "Fixes")
+- First line ≤ 72 characters, describes *what* and *why*, not *how*
+- No vague messages like "update" or "fix stuff"
 
 Remote: https://github.com/dav170699/tic-tac-toe
 
