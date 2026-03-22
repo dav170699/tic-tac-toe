@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"/c/Users/david/Documents/claude projets/agent_financial_advice/\" log --oneline)",
+      "Bash(pip show:*)",
+      "Bash(pip3 show:*)"
+    ]
+  }
+}

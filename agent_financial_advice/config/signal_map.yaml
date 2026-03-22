@@ -1,0 +1,147 @@
+# Signal Map: macro signal → ETF category score adjustments
+# Scores are additive. Positive = increase weight, Negative = decrease weight.
+# Each signal type maps to a list of {category, score} pairs.
+
+signals:
+
+  equities_positive:
+    - category: global_equity
+      score: +2
+    - category: us_equity
+      score: +2
+    - category: europe_equity
+      score: +1
+    - category: emerging_markets
+      score: +1
+    - category: sector_tech
+      score: +1
+
+  equities_negative:
+    - category: global_equity
+      score: -2
+    - category: us_equity
+      score: -2
+    - category: europe_equity
+      score: -1
+    - category: emerging_markets
+      score: -2
+    - category: sector_tech
+      score: -2
+    - category: low_volatility
+      score: +2
+    - category: sector_healthcare
+      score: +1
+
+  risk_off:
+    - category: low_volatility
+      score: +3
+    - category: sector_healthcare
+      score: +2
+    - category: emerging_markets
+      score: -3
+    - category: sector_tech
+      score: -2
+    - category: global_equity
+      score: -1
+    - category: us_equity
+      score: -1
+
+  risk_on:
+    - category: emerging_markets
+      score: +3
+    - category: sector_tech
+      score: +2
+    - category: small_cap
+      score: +2
+    - category: global_equity
+      score: +1
+    - category: low_volatility
+      score: -1
+
+  bonds_positive:
+    - category: sector_healthcare
+      score: +1
+    - category: low_volatility
+      score: +1
+    - category: global_equity
+      score: -1
+
+  inflation_high:
+    - category: sector_energy
+      score: +2
+    - category: sector_clean_energy
+      score: +1
+    - category: low_volatility
+      score: +1
+    - category: us_equity
+      score: -1
+    - category: europe_equity
+      score: -1
+
+  inflation_low:
+    - category: global_equity
+      score: +1
+    - category: us_equity
+      score: +1
+    - category: europe_equity
+      score: +1
+
+  geopolitical_tension:
+    - category: low_volatility
+      score: +3
+    - category: sector_energy
+      score: +2
+    - category: emerging_markets
+      score: -2
+    - category: global_equity
+      score: -1
+    - category: china
+      score: -2
+
+  europe_positive:
+    - category: europe_equity
+      score: +3
+    - category: small_cap
+      score: +1
+
+  europe_negative:
+    - category: europe_equity
+      score: -3
+    - category: small_cap
+      score: -1
+    - category: us_equity
+      score: +1
+
+  asia_positive:
+    - category: japan
+      score: +2
+    - category: china
+      score: +2
+    - category: emerging_markets
+      score: +1
+
+  asia_negative:
+    - category: japan
+      score: -2
+    - category: china
+      score: -3
+    - category: emerging_markets
+      score: -2
+
+  usd_strong:
+    - category: emerging_markets
+      score: -2
+    - category: us_equity
+      score: +1
+
+  usd_weak:
+    - category: emerging_markets
+      score: +2
+    - category: europe_equity
+      score: +1
+
+  energy_transition:
+    - category: sector_clean_energy
+      score: +3
+    - category: sector_energy
+      score: -1

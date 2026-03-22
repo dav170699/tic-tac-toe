@@ -1,0 +1,28 @@
+# systemd service file for Linux VPS deployment
+# Copy to: /etc/systemd/system/financial-agent.service
+# Then run:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable financial-agent
+#   sudo systemctl start financial-agent
+#   sudo journalctl -u financial-agent -f   # View logs
+
+[Unit]
+Description=Financial Advisor Agent — ETF Newsletter
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=YOUR_LINUX_USER
+WorkingDirectory=/path/to/agent_financial_advice
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/path/to/venv/bin/python main.py schedule
+Restart=always
+RestartSec=30
+
+# Logging to journald (readable with journalctl -u financial-agent)
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

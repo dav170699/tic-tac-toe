@@ -1,0 +1,22 @@
+# Secrets
+.env
+
+# Cache
+.cache/
+!.cache/.gitkeep
+
+# Logs
+logs/*.log
+!logs/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db

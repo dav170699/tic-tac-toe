@@ -1,0 +1,372 @@
+# ETF Universe — PEA-eligible ETFs from Amundi and iShares (BlackRock)
+# Available on BoursoBank PEA
+# All ETFs are UCITS-compliant and EU-domiciled (or recognized for PEA eligibility)
+# TER = Total Expense Ratio (%)
+# ticker_yahoo: Yahoo Finance ticker (suffix .PA = Paris, .AS = Amsterdam)
+
+etfs:
+
+  # ── GLOBAL EQUITY ────────────────────────────────────────────────────────
+
+  - isin: FR0010315770
+    ticker_yahoo: "CW8.PA"
+    name: "Amundi MSCI World UCITS ETF"
+    provider: amundi
+    category: global_equity
+    geography: world
+    currency: EUR
+    ter: 0.38
+    pea_eligible: true
+    themes: [developed_markets, large_cap, diversification]
+
+  - isin: LU1781541179
+    ticker_yahoo: "MWRD.PA"
+    name: "Amundi MSCI World II UCITS ETF Dist"
+    provider: amundi
+    category: global_equity
+    geography: world
+    currency: EUR
+    ter: 0.38
+    pea_eligible: true
+    themes: [developed_markets, large_cap, dividends]
+
+  - isin: IE00B4L5Y983
+    ticker_yahoo: "IWDA.AS"
+    name: "iShares Core MSCI World UCITS ETF"
+    provider: ishares
+    category: global_equity
+    geography: world
+    currency: USD
+    ter: 0.20
+    pea_eligible: true
+    themes: [developed_markets, large_cap, diversification, low_cost]
+
+  - isin: IE00B6R52259
+    ticker_yahoo: "EUNL.DE"
+    name: "iShares Core MSCI World UCITS ETF (Acc)"
+    provider: ishares
+    category: global_equity
+    geography: world
+    currency: EUR
+    ter: 0.20
+    pea_eligible: true
+    themes: [developed_markets, large_cap, accumulating]
+
+  # ── US EQUITY ────────────────────────────────────────────────────────────
+
+  - isin: LU1681048804
+    ticker_yahoo: "500.PA"
+    name: "Amundi S&P 500 UCITS ETF"
+    provider: amundi
+    category: us_equity
+    geography: us
+    currency: EUR
+    ter: 0.15
+    pea_eligible: true
+    themes: [us_market, large_cap, sp500, low_cost]
+
+  - isin: IE00B5BMR087
+    ticker_yahoo: "CSP1.PA"
+    name: "iShares Core S&P 500 UCITS ETF"
+    provider: ishares
+    category: us_equity
+    geography: us
+    currency: USD
+    ter: 0.07
+    pea_eligible: true
+    themes: [us_market, large_cap, sp500, low_cost]
+
+  - isin: FR0011550185
+    ticker_yahoo: "UST.PA"
+    name: "Amundi Nasdaq-100 UCITS ETF"
+    provider: amundi
+    category: us_equity
+    geography: us
+    currency: EUR
+    ter: 0.23
+    pea_eligible: true
+    themes: [us_market, nasdaq, growth, tech_heavy]
+
+  # ── EUROPE EQUITY ────────────────────────────────────────────────────────
+
+  - isin: FR0007054358
+    ticker_yahoo: "C50.PA"
+    name: "Amundi Euro Stoxx 50 UCITS ETF"
+    provider: amundi
+    category: europe_equity
+    geography: eurozone
+    currency: EUR
+    ter: 0.15
+    pea_eligible: true
+    themes: [european_market, large_cap, blue_chip]
+
+  - isin: IE00B53L3W79
+    ticker_yahoo: "CSSX5E.PA"
+    name: "iShares Core Euro Stoxx 50 UCITS ETF"
+    provider: ishares
+    category: europe_equity
+    geography: eurozone
+    currency: EUR
+    ter: 0.10
+    pea_eligible: true
+    themes: [european_market, large_cap, blue_chip, low_cost]
+
+  - isin: FR0010261198
+    ticker_yahoo: "C40.PA"
+    name: "Amundi CAC 40 UCITS ETF"
+    provider: amundi
+    category: europe_equity
+    geography: france
+    currency: EUR
+    ter: 0.25
+    pea_eligible: true
+    themes: [french_market, large_cap]
+
+  - isin: IE00B02KXH56
+    ticker_yahoo: "IMEU.PA"
+    name: "iShares MSCI Europe UCITS ETF"
+    provider: ishares
+    category: europe_equity
+    geography: europe
+    currency: EUR
+    ter: 0.12
+    pea_eligible: true
+    themes: [european_market, large_cap, broad_europe]
+
+  - isin: LU1681043599
+    ticker_yahoo: "SMAE.PA"
+    name: "Amundi MSCI Europe Small Cap UCITS ETF"
+    provider: amundi
+    category: small_cap
+    geography: europe
+    currency: EUR
+    ter: 0.30
+    pea_eligible: true
+    themes: [european_market, small_cap, growth]
+
+  # ── EMERGING MARKETS ─────────────────────────────────────────────────────
+
+  - isin: LU1681045370
+    ticker_yahoo: "PAEEM.PA"
+    name: "Amundi MSCI Emerging Markets UCITS ETF"
+    provider: amundi
+    category: emerging_markets
+    geography: emerging
+    currency: EUR
+    ter: 0.20
+    pea_eligible: true
+    themes: [emerging_markets, diversified, growth]
+
+  - isin: IE00BKM4GZ66
+    ticker_yahoo: "EIMI.PA"
+    name: "iShares Core MSCI Emerging Markets IMI UCITS ETF"
+    provider: ishares
+    category: emerging_markets
+    geography: emerging
+    currency: USD
+    ter: 0.18
+    pea_eligible: true
+    themes: [emerging_markets, diversified, small_mid_large]
+
+  # ── JAPAN ────────────────────────────────────────────────────────────────
+
+  - isin: LU1681046964
+    ticker_yahoo: "AMLJ.PA"
+    name: "Amundi MSCI Japan UCITS ETF"
+    provider: amundi
+    category: japan
+    geography: japan
+    currency: EUR
+    ter: 0.15
+    pea_eligible: true
+    themes: [japan, developed_markets, asia]
+
+  - isin: IE00B02KXK85
+    ticker_yahoo: "IJPN.PA"
+    name: "iShares MSCI Japan UCITS ETF"
+    provider: ishares
+    category: japan
+    geography: japan
+    currency: USD
+    ter: 0.12
+    pea_eligible: true
+    themes: [japan, developed_markets, asia]
+
+  # ── CHINA ────────────────────────────────────────────────────────────────
+
+  - isin: LU1681043086
+    ticker_yahoo: "CAMC.PA"
+    name: "Amundi MSCI China UCITS ETF"
+    provider: amundi
+    category: china
+    geography: china
+    currency: EUR
+    ter: 0.35
+    pea_eligible: true
+    themes: [china, emerging_markets, asia, growth]
+
+  - isin: IE00B5VX7566
+    ticker_yahoo: "ICHN.PA"
+    name: "iShares MSCI China UCITS ETF"
+    provider: ishares
+    category: china
+    geography: china
+    currency: USD
+    ter: 0.40
+    pea_eligible: true
+    themes: [china, emerging_markets, asia]
+
+  # ── SECTOR: TECHNOLOGY ───────────────────────────────────────────────────
+
+  - isin: LU2023678282
+    ticker_yahoo: "AWTC.PA"
+    name: "Amundi MSCI World Technology UCITS ETF"
+    provider: amundi
+    category: sector_tech
+    geography: world
+    currency: EUR
+    ter: 0.35
+    pea_eligible: true
+    themes: [technology, global, growth, sector]
+
+  - isin: IE00B3WJKG14
+    ticker_yahoo: "IITU.PA"
+    name: "iShares S&P 500 Information Technology Sector UCITS ETF"
+    provider: ishares
+    category: sector_tech
+    geography: us
+    currency: USD
+    ter: 0.15
+    pea_eligible: true
+    themes: [technology, us_market, sector, growth]
+
+  # ── SECTOR: HEALTHCARE ───────────────────────────────────────────────────
+
+  - isin: LU2023678951
+    ticker_yahoo: "AHLE.PA"
+    name: "Amundi MSCI World Health Care UCITS ETF"
+    provider: amundi
+    category: sector_healthcare
+    geography: world
+    currency: EUR
+    ter: 0.35
+    pea_eligible: true
+    themes: [healthcare, global, defensive, sector]
+
+  - isin: IE00B3CNHF18
+    ticker_yahoo: "IHCU.PA"
+    name: "iShares S&P 500 Health Care Sector UCITS ETF"
+    provider: ishares
+    category: sector_healthcare
+    geography: us
+    currency: USD
+    ter: 0.15
+    pea_eligible: true
+    themes: [healthcare, us_market, defensive, sector]
+
+  # ── SECTOR: ENERGY ───────────────────────────────────────────────────────
+
+  - isin: LU2023679181
+    ticker_yahoo: "AEGY.PA"
+    name: "Amundi MSCI World Energy UCITS ETF"
+    provider: amundi
+    category: sector_energy
+    geography: world
+    currency: EUR
+    ter: 0.35
+    pea_eligible: true
+    themes: [energy, global, commodities, sector, inflation_hedge]
+
+  - isin: IE00B42NKQ00
+    ticker_yahoo: "IUES.PA"
+    name: "iShares S&P 500 Energy Sector UCITS ETF"
+    provider: ishares
+    category: sector_energy
+    geography: us
+    currency: USD
+    ter: 0.15
+    pea_eligible: true
+    themes: [energy, us_market, commodities, inflation_hedge]
+
+  # ── SECTOR: CLEAN ENERGY ─────────────────────────────────────────────────
+
+  - isin: IE00B1XNHC34
+    ticker_yahoo: "INRG.PA"
+    name: "iShares Global Clean Energy UCITS ETF"
+    provider: ishares
+    category: sector_clean_energy
+    geography: world
+    currency: USD
+    ter: 0.65
+    pea_eligible: true
+    themes: [clean_energy, esg, transition, sector, growth]
+
+  - isin: LU1437018598
+    ticker_yahoo: "MWRD.PA"
+    name: "Amundi MSCI World Climate Transition CTB UCITS ETF"
+    provider: amundi
+    category: sector_clean_energy
+    geography: world
+    currency: EUR
+    ter: 0.25
+    pea_eligible: true
+    themes: [clean_energy, esg, climate, low_carbon]
+
+  # ── LOW VOLATILITY / DEFENSIVE ───────────────────────────────────────────
+
+  - isin: IE00B8FHGS14
+    ticker_yahoo: "MVOL.PA"
+    name: "iShares Edge MSCI World Minimum Volatility UCITS ETF"
+    provider: ishares
+    category: low_volatility
+    geography: world
+    currency: USD
+    ter: 0.30
+    pea_eligible: true
+    themes: [defensive, low_volatility, global, risk_reduction]
+
+  - isin: IE00B86MWN23
+    ticker_yahoo: "MVEU.PA"
+    name: "iShares Edge MSCI Europe Minimum Volatility UCITS ETF"
+    provider: ishares
+    category: low_volatility
+    geography: europe
+    currency: EUR
+    ter: 0.25
+    pea_eligible: true
+    themes: [defensive, low_volatility, europe, risk_reduction]
+
+  - isin: LU1215415214
+    ticker_yahoo: "LOWN.PA"
+    name: "Amundi MSCI Europe Low Carbon Leaders UCITS ETF"
+    provider: amundi
+    category: low_volatility
+    geography: europe
+    currency: EUR
+    ter: 0.14
+    pea_eligible: true
+    themes: [defensive, esg, europe, low_carbon]
+
+  # ── SMALL CAP ────────────────────────────────────────────────────────────
+
+  - isin: IE00B3VWMM18
+    ticker_yahoo: "IUSE.PA"
+    name: "iShares MSCI USA Small Cap UCITS ETF"
+    provider: ishares
+    category: small_cap
+    geography: us
+    currency: USD
+    ter: 0.43
+    pea_eligible: true
+    themes: [us_market, small_cap, growth]
+
+  - isin: LU1681046511
+    ticker_yahoo: "ASMW.PA"
+    name: "Amundi MSCI World Small Cap UCITS ETF"
+    provider: amundi
+    category: small_cap
+    geography: world
+    currency: EUR
+    ter: 0.35
+    pea_eligible: true
+    themes: [global, small_cap, growth]

@@ -1,0 +1,25 @@
+schedule:
+  frequency: weekly        # daily | weekly | monthly
+  time: "08:00"            # HH:MM (24h, heure locale)
+  day_of_week: monday      # utilisé si frequency=weekly (monday..sunday)
+  day_of_month: 1          # utilisé si frequency=monthly (1..28)
+  timezone: "Europe/Paris"
+
+delivery:
+  email:
+    enabled: true
+    provider: gmail          # gmail | sendgrid
+  whatsapp:
+    enabled: false           # passer à true quand Twilio est approuvé
+
+analysis:
+  claude_model: claude-sonnet-4-6
+  news_lookback_days: 7      # jours de news à récupérer
+  top_etf_picks: 5           # nombre d'ETFs recommandés
+  max_news_articles: 50      # limite avant envoi à Claude
+  language: fr               # fr | es | en — langue du newsletter
+
+data:
+  etf_universe_file: data/etf_universe.yaml
+  signal_map_file: config/signal_map.yaml
+  cache_dir: .cache
