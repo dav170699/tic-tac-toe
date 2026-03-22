@@ -16,6 +16,7 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      padding: 1rem;
     }
 
     h1 {
@@ -25,6 +26,30 @@
       color: #e94560;
     }
 
+    /* ── Screens ── */
+    .screen { display: none; flex-direction: column; align-items: center; width: 100%; max-width: 480px; }
+    .screen.active { display: flex; }
+
+    /* ── Mode toggle ── */
+    #mode-toggle {
+      margin-bottom: 1.2rem;
+      display: flex;
+      background: #16213e;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #mode-toggle button {
+      padding: 0.5rem 1.2rem;
+      border: none;
+      background: transparent;
+      color: #888;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    #mode-toggle button.active { background: #0f3460; color: #eee; }
+
+    /* ── Status ── */
     #status {
       font-size: 1.2rem;
       margin-bottom: 1.5rem;
@@ -32,6 +57,7 @@
       color: #a8dadc;
     }
 
+    /* ── Game board ── */
     #board {
       display: grid;
       grid-template-columns: repeat(3, 110px);
@@ -51,93 +77,189 @@
       transition: background 0.15s, transform 0.1s;
       user-select: none;
     }
-
-    .cell:hover:not(.taken) {
-      background: #0f3460;
-      transform: scale(1.05);
-    }
-
+    .cell:hover:not(.taken):not(.hint-cell) { background: #0f3460; transform: scale(1.05); }
     .cell.x { color: #e94560; }
     .cell.o { color: #a8dadc; }
+    .cell.win { background: #0f3460; animation: pulse 0.6s ease-in-out infinite alternate; }
+    .cell.highlight { background: #1a4a2e; border: 2px solid #4caf50; }
+    .cell.hint-cell { background: #2a1a3e; border: 2px dashed #a8dadc; cursor: default; }
 
-    .cell.win {
-      background: #0f3460;
-      animation: pulse 0.6s ease-in-out infinite alternate;
-    }
+    @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.08); } }
 
-    @keyframes pulse {
-      from { transform: scale(1); }
-      to   { transform: scale(1.08); }
-    }
-
-    #scoreboard {
-      display: flex;
-      gap: 2rem;
-      margin: 1.5rem 0;
-    }
-
-    .score-box {
-      text-align: center;
-      background: #16213e;
-      border-radius: 10px;
-      padding: 0.6rem 1.2rem;
-    }
-
+    /* ── Scoreboard ── */
+    #scoreboard { display: flex; gap: 2rem; margin: 1.5rem 0; }
+    .score-box { text-align: center; background: #16213e; border-radius: 10px; padding: 0.6rem 1.2rem; }
     .score-box .label { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
     .score-box .value { font-size: 1.8rem; font-weight: bold; }
     .score-box.x .value { color: #e94560; }
     .score-box.o .value { color: #a8dadc; }
     .score-box.draw .value { color: #f5c518; }
 
-    #restart {
-      margin-top: 0.5rem;
+    /* ── Buttons ── */
+    .btn {
       padding: 0.7rem 2rem;
       font-size: 1rem;
       border: none;
       border-radius: 8px;
-      background: #e94560;
-      color: white;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
+      color: white;
     }
+    .btn:hover { transform: scale(1.04); }
+    .btn-red { background: #e94560; }
+    .btn-red:hover { background: #c73652; }
+    .btn-blue { background: #0f3460; }
+    .btn-blue:hover { background: #0a2540; }
+    .btn-green { background: #2e7d52; }
+    .btn-green:hover { background: #245e3e; }
+    #restart { margin-top: 0.5rem; }
 
-    #restart:hover { background: #c73652; transform: scale(1.04); }
+    /* ── Training Hub ── */
+    #training-hub h2 { font-size: 1.6rem; color: #a8dadc; margin-bottom: 0.3rem; }
+    #training-hub .sub { color: #888; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .level-cards { display: flex; flex-direction: column; gap: 1rem; width: 100%; }
 
-    #mode-toggle {
-      margin-bottom: 1.2rem;
-      display: flex;
+    .level-card {
       background: #16213e;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    #mode-toggle button {
-      padding: 0.5rem 1.2rem;
-      border: none;
-      background: transparent;
-      color: #888;
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      border: 2px solid transparent;
+    }
+    .level-card:hover:not(.locked) { background: #0f3460; transform: scale(1.02); }
+    .level-card.locked { opacity: 0.45; cursor: not-allowed; }
+    .level-card.completed { border-color: #2e7d52; }
+
+    .level-card .card-left { display: flex; align-items: center; gap: 1rem; }
+    .level-card .level-icon { font-size: 2rem; }
+    .level-card .level-name { font-size: 1.1rem; font-weight: bold; }
+    .level-card .level-desc { font-size: 0.8rem; color: #888; margin-top: 0.2rem; }
+    .level-card .badge { font-size: 1.3rem; }
+
+    .hub-back { margin-top: 1.5rem; }
+
+    /* ── Lesson screen ── */
+    #lesson-screen { gap: 1rem; }
+    .lesson-header { text-align: center; }
+    .lesson-header .lesson-level { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+    .lesson-header h2 { font-size: 1.4rem; color: #a8dadc; margin-top: 0.2rem; }
+
+    .slide-card {
+      background: #16213e;
+      border-radius: 14px;
+      padding: 1.5rem;
+      width: 100%;
+      text-align: center;
+    }
+    .slide-card h3 { font-size: 1.1rem; color: #e94560; margin-bottom: 0.7rem; }
+    .slide-card p { font-size: 0.95rem; color: #ccc; line-height: 1.5; margin-bottom: 1rem; }
+
+    /* Demo board inside lesson */
+    .demo-board {
+      display: grid;
+      grid-template-columns: repeat(3, 70px);
+      grid-template-rows: repeat(3, 70px);
+      gap: 6px;
+      margin: 0 auto;
+    }
+    .demo-cell {
+      background: #0f3460;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    .demo-cell.x { color: #e94560; }
+    .demo-cell.o { color: #a8dadc; }
+    .demo-cell.highlight { background: #1a4a2e; border: 2px solid #4caf50; }
+    .demo-cell.dim { opacity: 0.3; }
+    .demo-cell.priority-1 { background: #1a3a2e; border: 2px solid #4caf50; }
+    .demo-cell.priority-2 { background: #1a2a3e; border: 2px solid #a8dadc; }
+    .demo-cell.priority-3 { background: #2a1a2e; border: 2px solid #888; }
+
+    /* Slide navigation */
+    .slide-nav { display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem; }
+    .pips { display: flex; gap: 6px; }
+    .pip {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #333;
+      transition: background 0.2s;
+    }
+    .pip.active { background: #a8dadc; }
+
+    /* ── Puzzle screen ── */
+    #puzzle-screen { gap: 1rem; }
+    .puzzle-header { text-align: center; }
+    .puzzle-header .puzzle-level { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+    .puzzle-header h2 { font-size: 1.3rem; color: #f5c518; margin-top: 0.2rem; }
+    .puzzle-instruction {
+      background: #16213e;
+      border-radius: 10px;
+      padding: 0.8rem 1.2rem;
       font-size: 0.95rem;
-      transition: background 0.2s, color 0.2s;
+      color: #ccc;
+      text-align: center;
+      width: 100%;
+    }
+    .puzzle-progress { font-size: 0.85rem; color: #888; }
+    #puzzle-feedback {
+      font-size: 1rem;
+      font-weight: bold;
+      min-height: 1.4rem;
+      transition: color 0.2s;
     }
 
-    #mode-toggle button.active {
-      background: #0f3460;
-      color: #eee;
+    /* ── CPU Battle screen ── */
+    #cpu-battle-screen { gap: 0.5rem; }
+    .battle-header { text-align: center; margin-bottom: 0.5rem; }
+    .battle-header .battle-level { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+    .battle-header h2 { font-size: 1.3rem; color: #e94560; margin-top: 0.2rem; }
+    .battle-objective {
+      background: #16213e;
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      color: #888;
+      text-align: center;
+      margin-bottom: 0.5rem;
     }
+    #battle-status { font-size: 1.1rem; color: #a8dadc; margin-bottom: 0.8rem; min-height: 1.4rem; }
+    #battle-board {
+      display: grid;
+      grid-template-columns: repeat(3, 110px);
+      grid-template-rows: repeat(3, 110px);
+      gap: 8px;
+    }
+    #battle-result { font-size: 1rem; color: #ccc; margin-top: 0.8rem; min-height: 1.2rem; text-align: center; }
+
+    /* ── Level complete ── */
+    #level-complete { text-align: center; gap: 1rem; }
+    .complete-icon { font-size: 4rem; }
+    #level-complete h2 { font-size: 1.8rem; color: #4caf50; }
+    #level-complete p { color: #aaa; font-size: 0.95rem; }
+    .complete-btns { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; justify-content: center; }
   </style>
 </head>
 <body>
 
-  <h1>Tic Tac Toe</h1>
+<h1>Tic Tac Toe</h1>
 
+<!-- ═══════════════ GAME SCREEN ═══════════════ -->
+<div id="game-screen" class="screen active">
   <div id="mode-toggle">
     <button id="btn-pvp" class="active" onclick="setMode('pvp')">2 Players</button>
     <button id="btn-ai"  onclick="setMode('ai')">vs CPU</button>
+    <button id="btn-training" onclick="openTraining()">Training</button>
   </div>
 
   <div id="status">X's turn</div>
-
   <div id="board"></div>
 
   <div id="scoreboard">
@@ -155,18 +277,279 @@
     </div>
   </div>
 
-  <button id="restart" onclick="resetGame()">New Game</button>
+  <button id="restart" class="btn btn-red" onclick="resetGame()">New Game</button>
+</div>
+
+<!-- ═══════════════ TRAINING HUB ═══════════════ -->
+<div id="training-hub" class="screen">
+  <div style="text-align:center;margin-bottom:1.5rem;">
+    <h2 style="font-size:1.6rem;color:#a8dadc;">Training Mode</h2>
+    <p style="color:#888;font-size:0.9rem;margin-top:0.3rem;">Learn strategy, solve puzzles, beat the CPU.</p>
+  </div>
+  <div class="level-cards" id="level-cards"></div>
+  <button class="btn btn-blue hub-back" onclick="showScreen('game-screen')">&#8592; Back to Game</button>
+</div>
+
+<!-- ═══════════════ LESSON SCREEN ═══════════════ -->
+<div id="lesson-screen" class="screen">
+  <div class="lesson-header">
+    <div class="lesson-level" id="lesson-level-label"></div>
+    <h2 id="lesson-title"></h2>
+  </div>
+
+  <div class="slide-card" id="slide-card">
+    <h3 id="slide-title"></h3>
+    <p id="slide-text"></p>
+    <div class="demo-board" id="demo-board"></div>
+  </div>
+
+  <div class="slide-nav">
+    <button class="btn btn-blue" id="btn-prev" onclick="prevSlide()">&#8592;</button>
+    <div class="pips" id="pips"></div>
+    <button class="btn btn-blue" id="btn-next" onclick="nextSlide()">&#8594;</button>
+  </div>
+
+  <button class="btn btn-blue" style="margin-top:0.5rem;" onclick="showScreen('training-hub')">&#8592; Back</button>
+</div>
+
+<!-- ═══════════════ PUZZLE SCREEN ═══════════════ -->
+<div id="puzzle-screen" class="screen">
+  <div class="puzzle-header">
+    <div class="puzzle-level" id="puzzle-level-label"></div>
+    <h2 id="puzzle-title">Puzzle Challenge</h2>
+  </div>
+
+  <div class="puzzle-instruction" id="puzzle-instruction"></div>
+  <div class="puzzle-progress" id="puzzle-progress"></div>
+  <div id="puzzle-feedback"></div>
+
+  <div id="board-puzzle" style="display:grid;grid-template-columns:repeat(3,110px);grid-template-rows:repeat(3,110px);gap:8px;"></div>
+
+  <button class="btn btn-blue" style="margin-top:1rem;" onclick="showScreen('training-hub')">&#8592; Quit</button>
+</div>
+
+<!-- ═══════════════ CPU BATTLE SCREEN ═══════════════ -->
+<div id="cpu-battle-screen" class="screen">
+  <div class="battle-header">
+    <div class="battle-level" id="battle-level-label"></div>
+    <h2 id="battle-title">CPU Battle</h2>
+  </div>
+  <div class="battle-objective" id="battle-objective"></div>
+  <div id="battle-status">X's turn</div>
+  <div id="battle-board"></div>
+  <div id="battle-result"></div>
+  <button class="btn btn-blue" style="margin-top:1rem;" id="btn-retry" onclick="startCPUBattle(trainingLevel)" style="display:none;">Retry</button>
+  <button class="btn btn-blue" style="margin-top:0.5rem;" onclick="showScreen('training-hub')">&#8592; Quit</button>
+</div>
+
+<!-- ═══════════════ LEVEL COMPLETE ═══════════════ -->
+<div id="level-complete" class="screen">
+  <div class="complete-icon">&#127881;</div>
+  <h2 id="complete-title">Level Complete!</h2>
+  <p id="complete-text"></p>
+  <div class="complete-btns">
+    <button class="btn btn-green" id="btn-next-level" onclick="goNextLevel()">Next Level &#8594;</button>
+    <button class="btn btn-blue" onclick="showScreen('training-hub')">Training Hub</button>
+  </div>
+</div>
 
 <script>
+  // ════════════════════════════════════════════
+  //  CONSTANTS
+  // ════════════════════════════════════════════
   const WINS = [
     [0,1,2],[3,4,5],[6,7,8],
     [0,3,6],[1,4,7],[2,5,8],
     [0,4,8],[2,4,6]
   ];
 
+  // ════════════════════════════════════════════
+  //  GAME STATE
+  // ════════════════════════════════════════════
   let board, current, gameOver, mode, scores;
 
+  // ════════════════════════════════════════════
+  //  TRAINING STATE
+  // ════════════════════════════════════════════
+  let trainingLevel = null;
+  let slideIndex = 0;
+  let puzzleIndex = 0;
+  let puzzlesPassed = 0;
+  let trainingProgress = {
+    1: { unlocked: true,  completed: false },
+    2: { unlocked: false, completed: false },
+    3: { unlocked: false, completed: false }
+  };
+
+  // ════════════════════════════════════════════
+  //  LESSON DATA
+  // ════════════════════════════════════════════
+  const LESSONS = {
+    1: {
+      title: 'Beginner Basics',
+      slides: [
+        {
+          title: 'Goal: Get 3 in a Row',
+          text: 'Win by placing 3 of your marks in a row — horizontally, vertically, or diagonally.',
+          board: ['X','X','X','','','','','',''],
+          highlight: [0,1,2], dim: []
+        },
+        {
+          title: 'Win When You Can',
+          text: 'If you already have 2 in a row and the third square is free — take it immediately and win!',
+          board: ['X','X','','','','','','',''],
+          highlight: [2], dim: []
+        },
+        {
+          title: 'Always Block Your Opponent',
+          text: 'If your opponent has 2 in a row, block the third square right away or you will lose.',
+          board: ['O','','','O','','','','',''],
+          highlight: [6], dim: []
+        }
+      ]
+    },
+    2: {
+      title: 'Advanced Strategy',
+      slides: [
+        {
+          title: 'Control the Center',
+          text: 'The center square (index 4) is involved in 4 winning lines. Always take it if it\'s free on your first move.',
+          board: ['','','','','X','','','',''],
+          highlight: [4], dim: []
+        },
+        {
+          title: 'Use the Corners',
+          text: 'Corners are each part of 3 winning lines. After the center, corners are the strongest positions.',
+          board: ['X','','X','','O','','X','','X'],
+          highlight: [0,2,6,8], dim: []
+        },
+        {
+          title: 'Create a Fork',
+          text: 'A fork creates TWO ways to win at once — your opponent can only block one, so you win the other.',
+          board: ['X','','','','X','','','','X'],
+          highlight: [2,6], dim: []
+        }
+      ]
+    },
+    3: {
+      title: 'Expert Play',
+      slides: [
+        {
+          title: 'Opening Theory',
+          text: 'As X, priority is: Center (best) → Corners (great) → Edges (weakest). Start with center or a corner.',
+          board: ['','','','','','','','',''],
+          priority: { 4: 1, 0: 2, 2: 2, 6: 2, 8: 2, 1: 3, 3: 3, 5: 3, 7: 3 },
+          highlight: [], dim: []
+        },
+        {
+          title: 'Deny Your Opponent\'s Forks',
+          text: 'If your opponent plays corner → opposite corner, they\'re setting up a fork. Play an edge to force them to block instead.',
+          board: ['O','','','','X','','','','O'],
+          highlight: [1,3,5,7], dim: []
+        },
+        {
+          title: 'Perfect Play = Draw',
+          text: 'With perfect play from both sides, Tic Tac Toe always ends in a draw. Your goal is to never lose.',
+          board: ['X','O','X','X','O','O','O','X','X'],
+          highlight: [], dim: []
+        }
+      ]
+    }
+  };
+
+  // ════════════════════════════════════════════
+  //  PUZZLE DATA
+  // ════════════════════════════════════════════
+  const PUZZLES = {
+    1: [
+      {
+        board: ['X','X','','','O','','','','O'],
+        player: 'X',
+        correctMoves: [2],
+        instruction: 'X has two in a row at the top. Find the winning move!'
+      },
+      {
+        board: ['O','','X','O','X','','','',''],
+        player: 'X',
+        correctMoves: [6],
+        instruction: 'O is about to win down the left column. Block them!'
+      },
+      {
+        board: ['X','O','','O','X','','','',''],
+        player: 'X',
+        correctMoves: [8],
+        instruction: 'X is one move from winning diagonally. Take it!'
+      }
+    ],
+    2: [
+      {
+        board: ['X','','','','O','','','','X'],
+        player: 'X',
+        correctMoves: [2,6],
+        instruction: 'Find the move that creates TWO ways to win at once (a fork).'
+      },
+      {
+        board: ['O','','','','X','','','','O'],
+        player: 'X',
+        correctMoves: [1,3,5,7],
+        instruction: 'O is setting up a fork with opposite corners. Play an edge to force a block!'
+      },
+      {
+        board: ['X','','O','','','','O','','X'],
+        player: 'X',
+        correctMoves: [4],
+        instruction: 'Take the center — it\'s the only move that stops O\'s fork and sets up your own.'
+      }
+    ],
+    3: [
+      {
+        board: ['O','X','O','','O','','X','','X'],
+        player: 'X',
+        correctMoves: [3,5],
+        instruction: 'Complex board! Find the only moves that prevent O from winning.'
+      },
+      {
+        board: ['X','O','X','','','','O','X','O'],
+        player: 'X',
+        correctMoves: [3,4,5],
+        instruction: 'Find a move in the middle row that keeps you from losing.'
+      },
+      {
+        board: ['O','','X','','X','','','','O'],
+        player: 'X',
+        correctMoves: [6,2],
+        instruction: 'O is threatening a fork. Find the move that blocks both threats.'
+      }
+    ]
+  };
+
+  // ════════════════════════════════════════════
+  //  SCREEN MANAGEMENT
+  // ════════════════════════════════════════════
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // ════════════════════════════════════════════
+  //  PROGRESS (localStorage)
+  // ════════════════════════════════════════════
+  function loadProgress() {
+    try {
+      const saved = localStorage.getItem('ttt_training');
+      if (saved) trainingProgress = JSON.parse(saved);
+    } catch(e) {}
+  }
+
+  function saveProgress() {
+    try { localStorage.setItem('ttt_training', JSON.stringify(trainingProgress)); } catch(e) {}
+  }
+
+  // ════════════════════════════════════════════
+  //  CORE GAME (unchanged)
+  // ════════════════════════════════════════════
   function init() {
+    loadProgress();
     board = Array(9).fill('');
     current = 'X';
     gameOver = false;
@@ -181,6 +564,8 @@
     mode = m;
     document.getElementById('btn-pvp').classList.toggle('active', m === 'pvp');
     document.getElementById('btn-ai').classList.toggle('active',  m === 'ai');
+    document.getElementById('btn-training').classList.toggle('active', false);
+    showScreen('game-screen');
     resetGame();
   }
 
@@ -200,9 +585,7 @@
     if (gameOver || board[i]) return;
     if (mode === 'ai' && current === 'O') return;
     makeMove(i);
-    if (mode === 'ai' && !gameOver) {
-      setTimeout(aiMove, 350);
-    }
+    if (mode === 'ai' && !gameOver) setTimeout(aiMove, 350);
   }
 
   function makeMove(i) {
@@ -236,8 +619,9 @@
   }
 
   function highlightWin(combo) {
-    const cells = document.querySelectorAll('.cell');
-    combo.forEach(i => cells[i].classList.add('win'));
+    document.querySelectorAll('#board .cell').forEach((c,i) => {
+      if (combo.includes(i)) c.classList.add('win');
+    });
   }
 
   function updateScoreboard() {
@@ -255,19 +639,16 @@
   }
 
   // Minimax AI
-  function aiMove() {
-    const idx = bestMove();
-    makeMove(idx);
-  }
+  function aiMove() { makeMove(bestMove()); }
 
   function bestMove() {
     let best = -Infinity, move = -1;
     for (let i = 0; i < 9; i++) {
       if (!board[i]) {
         board[i] = 'O';
-        const score = minimax(board, 0, false);
+        const s = minimax(board, 0, false);
         board[i] = '';
-        if (score > best) { best = score; move = i; }
+        if (s > best) { best = s; move = i; }
       }
     }
     return move;
@@ -277,7 +658,6 @@
     const win = WINS.find(([a,bc,c]) => b[a] && b[a] === b[bc] && b[a] === b[c]);
     if (win) return b[win[0]] === 'O' ? 10 - depth : depth - 10;
     if (b.every(c => c)) return 0;
-
     if (isMax) {
       let best = -Infinity;
       for (let i = 0; i < 9; i++) {
@@ -293,6 +673,370 @@
     }
   }
 
+  // ════════════════════════════════════════════
+  //  TRAINING HUB
+  // ════════════════════════════════════════════
+  const LEVEL_META = {
+    1: { icon: '🌱', name: 'Beginner', desc: 'Win, block, and learn the basics' },
+    2: { icon: '⚡', name: 'Advanced', desc: 'Center, corners, and fork tactics' },
+    3: { icon: '🏆', name: 'Expert',   desc: 'Perfect play and opening theory' }
+  };
+
+  function openTraining() {
+    document.getElementById('btn-pvp').classList.remove('active');
+    document.getElementById('btn-ai').classList.remove('active');
+    document.getElementById('btn-training').classList.add('active');
+    renderHub();
+    showScreen('training-hub');
+  }
+
+  function renderHub() {
+    const container = document.getElementById('level-cards');
+    container.innerHTML = '';
+    [1,2,3].forEach(lvl => {
+      const p = trainingProgress[lvl];
+      const m = LEVEL_META[lvl];
+      const card = document.createElement('div');
+      card.className = 'level-card' + (p.unlocked ? '' : ' locked') + (p.completed ? ' completed' : '');
+      card.innerHTML = `
+        <div class="card-left">
+          <div class="level-icon">${m.icon}</div>
+          <div>
+            <div class="level-name">Level ${lvl}: ${m.name}</div>
+            <div class="level-desc">${p.unlocked ? m.desc : '🔒 Complete the previous level to unlock'}</div>
+          </div>
+        </div>
+        <div class="badge">${p.completed ? '✅' : (p.unlocked ? '▶' : '🔒')}</div>
+      `;
+      if (p.unlocked) card.onclick = () => startLesson(lvl);
+      container.appendChild(card);
+    });
+  }
+
+  // ════════════════════════════════════════════
+  //  LESSON / SLIDES
+  // ════════════════════════════════════════════
+  function startLesson(lvl) {
+    trainingLevel = lvl;
+    slideIndex = 0;
+    const lesson = LESSONS[lvl];
+    document.getElementById('lesson-level-label').textContent = `Level ${lvl} · ${LEVEL_META[lvl].name}`;
+    document.getElementById('lesson-title').textContent = lesson.title;
+    buildPips(lesson.slides.length);
+    renderSlide();
+    showScreen('lesson-screen');
+  }
+
+  function buildPips(count) {
+    const pips = document.getElementById('pips');
+    pips.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+      const pip = document.createElement('div');
+      pip.className = 'pip' + (i === 0 ? ' active' : '');
+      pips.appendChild(pip);
+    }
+  }
+
+  function updatePips() {
+    document.querySelectorAll('.pip').forEach((p,i) => {
+      p.classList.toggle('active', i === slideIndex);
+    });
+  }
+
+  function renderSlide() {
+    const lesson = LESSONS[trainingLevel];
+    const slide  = lesson.slides[slideIndex];
+    document.getElementById('slide-title').textContent = slide.title;
+    document.getElementById('slide-text').textContent  = slide.text;
+
+    // Demo board
+    const db = document.getElementById('demo-board');
+    db.innerHTML = '';
+    slide.board.forEach((val, i) => {
+      const cell = document.createElement('div');
+      let cls = 'demo-cell';
+      if (slide.priority && slide.priority[i]) cls += ' priority-' + slide.priority[i];
+      else if (slide.highlight && slide.highlight.includes(i)) cls += ' highlight';
+      else if (slide.dim && slide.dim.includes(i)) cls += ' dim';
+      if (val === 'X') cls += ' x';
+      if (val === 'O') cls += ' o';
+      cell.className = cls;
+      cell.textContent = slide.priority ? (['★','●','·'][slide.priority[i]-1] || '') : val;
+      if (val) cell.textContent = val;
+      db.appendChild(cell);
+    });
+
+    // Prev/next button labels
+    const slides = lesson.slides;
+    document.getElementById('btn-prev').disabled = (slideIndex === 0);
+    const nextBtn = document.getElementById('btn-next');
+    nextBtn.textContent = slideIndex === slides.length - 1 ? 'Start Test ▶' : '→';
+    nextBtn.className   = slideIndex === slides.length - 1 ? 'btn btn-green' : 'btn btn-blue';
+    updatePips();
+  }
+
+  function nextSlide() {
+    const slides = LESSONS[trainingLevel].slides;
+    if (slideIndex < slides.length - 1) {
+      slideIndex++;
+      renderSlide();
+    } else {
+      startPuzzleTest(trainingLevel);
+    }
+  }
+
+  function prevSlide() {
+    if (slideIndex > 0) { slideIndex--; renderSlide(); }
+  }
+
+  // ════════════════════════════════════════════
+  //  PUZZLE TEST
+  // ════════════════════════════════════════════
+  function startPuzzleTest(lvl) {
+    trainingLevel = lvl;
+    puzzleIndex   = 0;
+    puzzlesPassed = 0;
+    document.getElementById('puzzle-level-label').textContent = `Level ${lvl} · ${LEVEL_META[lvl].name} — Puzzle Challenge`;
+    document.getElementById('puzzle-feedback').textContent = '';
+    renderPuzzle();
+    showScreen('puzzle-screen');
+  }
+
+  function renderPuzzle() {
+    const puzzle = PUZZLES[trainingLevel][puzzleIndex];
+    document.getElementById('puzzle-instruction').textContent = puzzle.instruction;
+    document.getElementById('puzzle-progress').textContent =
+      `Puzzle ${puzzleIndex + 1} of ${PUZZLES[trainingLevel].length}`;
+    document.getElementById('puzzle-feedback').textContent = '';
+
+    const el = document.getElementById('board-puzzle');
+    el.innerHTML = '';
+    puzzle.board.forEach((val, i) => {
+      const cell = document.createElement('div');
+      cell.className = 'cell' + (val ? ' taken ' + val.toLowerCase() : '');
+      cell.textContent = val;
+      if (!val) cell.onclick = () => checkPuzzleAnswer(i);
+      el.appendChild(cell);
+    });
+  }
+
+  function checkPuzzleAnswer(i) {
+    const puzzle  = PUZZLES[trainingLevel][puzzleIndex];
+    const fb      = document.getElementById('puzzle-feedback');
+    const correct = puzzle.correctMoves.includes(i);
+
+    fb.textContent = correct ? '✅ Correct!' : '❌ Not quite — try again.';
+    fb.style.color = correct ? '#4caf50' : '#e94560';
+
+    if (!correct) return;
+
+    // Show the correct move on board
+    const cells = document.querySelectorAll('#board-puzzle .cell');
+    cells[i].textContent = puzzle.player;
+    cells[i].classList.add('taken', puzzle.player.toLowerCase(), 'highlight');
+    cells[i].onclick = null;
+
+    puzzlesPassed++;
+    setTimeout(() => {
+      puzzleIndex++;
+      if (puzzleIndex < PUZZLES[trainingLevel].length) {
+        renderPuzzle();
+      } else {
+        startCPUBattle(trainingLevel);
+      }
+    }, 900);
+  }
+
+  // ════════════════════════════════════════════
+  //  CPU BATTLE
+  // ════════════════════════════════════════════
+  const BATTLE_OBJECTIVES = {
+    1: 'You are X. Beat the random CPU to pass!',
+    2: 'You are X. Win or draw against the smart CPU to pass.',
+    3: 'You are X. Don\'t lose against the unbeatable CPU to pass.'
+  };
+
+  let battleBoard, battleCurrent, battleOver;
+
+  function startCPUBattle(lvl) {
+    trainingLevel  = lvl;
+    battleBoard    = Array(9).fill('');
+    battleCurrent  = 'X';
+    battleOver     = false;
+
+    document.getElementById('battle-level-label').textContent = `Level ${lvl} · ${LEVEL_META[lvl].name} — CPU Battle`;
+    document.getElementById('battle-objective').textContent   = BATTLE_OBJECTIVES[lvl];
+    document.getElementById('battle-status').textContent      = "X's turn (you are X)";
+    document.getElementById('battle-result').textContent      = '';
+    document.getElementById('btn-retry').style.display        = 'none';
+
+    renderBattleBoard();
+    showScreen('cpu-battle-screen');
+  }
+
+  function renderBattleBoard() {
+    const el = document.getElementById('battle-board');
+    el.innerHTML = '';
+    battleBoard.forEach((val, i) => {
+      const cell = document.createElement('div');
+      cell.className = 'cell' + (val ? ' taken ' + val.toLowerCase() : '');
+      cell.textContent = val;
+      cell.style.cssText = '';
+      if (!val && !battleOver) cell.onclick = () => battleClick(i);
+      el.appendChild(cell);
+    });
+  }
+
+  function battleClick(i) {
+    if (battleOver || battleBoard[i] || battleCurrent !== 'X') return;
+    battleMove(i);
+    if (!battleOver) setTimeout(() => battleAI(), 400);
+  }
+
+  function battleMove(i) {
+    battleBoard[i] = battleCurrent;
+    const win = checkBattleWin();
+    renderBattleBoard();
+    if (win) {
+      highlightBattleWin(win);
+      battleOver = true;
+      handleBattleEnd(battleCurrent);
+    } else if (battleBoard.every(c => c)) {
+      battleOver = true;
+      handleBattleEnd('draw');
+    } else {
+      battleCurrent = battleCurrent === 'X' ? 'O' : 'X';
+      document.getElementById('battle-status').textContent =
+        battleCurrent === 'X' ? "X's turn (you are X)" : "CPU is thinking...";
+    }
+  }
+
+  function checkBattleWin() {
+    return WINS.find(([a,b,c]) => battleBoard[a] && battleBoard[a] === battleBoard[b] && battleBoard[a] === battleBoard[c]) || null;
+  }
+
+  function highlightBattleWin(combo) {
+    const cells = document.querySelectorAll('#battle-board .cell');
+    combo.forEach(i => cells[i].classList.add('win'));
+  }
+
+  function battleAI() {
+    if (battleOver) return;
+    let idx;
+    if (trainingLevel === 1)      idx = randomMove();
+    else if (trainingLevel === 2) idx = greedyMove();
+    else                          idx = bestBattleMove();
+    battleMove(idx);
+  }
+
+  function randomMove() {
+    const empty = battleBoard.map((v,i) => v ? -1 : i).filter(i => i >= 0);
+    return empty[Math.floor(Math.random() * empty.length)];
+  }
+
+  function greedyMove() {
+    // Take a win
+    for (let i = 0; i < 9; i++) {
+      if (!battleBoard[i]) {
+        battleBoard[i] = 'O';
+        if (checkBattleWin()) { battleBoard[i] = ''; return i; }
+        battleBoard[i] = '';
+      }
+    }
+    // Block a win
+    for (let i = 0; i < 9; i++) {
+      if (!battleBoard[i]) {
+        battleBoard[i] = 'X';
+        if (checkBattleWin()) { battleBoard[i] = ''; return i; }
+        battleBoard[i] = '';
+      }
+    }
+    return randomMove();
+  }
+
+  function bestBattleMove() {
+    let best = -Infinity, move = -1;
+    for (let i = 0; i < 9; i++) {
+      if (!battleBoard[i]) {
+        battleBoard[i] = 'O';
+        const s = battleMinimax(battleBoard, 0, false);
+        battleBoard[i] = '';
+        if (s > best) { best = s; move = i; }
+      }
+    }
+    return move;
+  }
+
+  function battleMinimax(b, depth, isMax) {
+    const win = WINS.find(([a,bc,c]) => b[a] && b[a] === b[bc] && b[a] === b[c]);
+    if (win) return b[win[0]] === 'O' ? 10 - depth : depth - 10;
+    if (b.every(c => c)) return 0;
+    if (isMax) {
+      let best = -Infinity;
+      for (let i = 0; i < 9; i++) {
+        if (!b[i]) { b[i] = 'O'; best = Math.max(best, battleMinimax(b, depth+1, false)); b[i] = ''; }
+      }
+      return best;
+    } else {
+      let best = Infinity;
+      for (let i = 0; i < 9; i++) {
+        if (!b[i]) { b[i] = 'X'; best = Math.min(best, battleMinimax(b, depth+1, true)); b[i] = ''; }
+      }
+      return best;
+    }
+  }
+
+  function handleBattleEnd(winner) {
+    const resultEl = document.getElementById('battle-result');
+    const retryBtn = document.getElementById('btn-retry');
+    const passConditions = { 1: 'X', 2: ['X','draw'], 3: ['X','draw'] };
+    const pass = passConditions[trainingLevel];
+    const passed = Array.isArray(pass) ? pass.includes(winner) : winner === pass;
+
+    document.getElementById('battle-status').textContent = '';
+
+    if (passed) {
+      resultEl.textContent = winner === 'draw' ? "Draw — you passed! 🤝" : "You win — you passed! 🎉";
+      resultEl.style.color = '#4caf50';
+      setTimeout(() => completeLevel(trainingLevel), 1000);
+    } else {
+      resultEl.textContent = "You lost — try again!";
+      resultEl.style.color = '#e94560';
+      retryBtn.style.display = 'inline-block';
+    }
+  }
+
+  // ════════════════════════════════════════════
+  //  LEVEL COMPLETE
+  // ════════════════════════════════════════════
+  function completeLevel(lvl) {
+    trainingProgress[lvl].completed = true;
+    if (lvl < 3) trainingProgress[lvl + 1].unlocked = true;
+    saveProgress();
+
+    const nextLvl    = lvl + 1;
+    const hasNext    = nextLvl <= 3;
+    document.getElementById('complete-title').textContent =
+      `Level ${lvl} Complete! ${lvl === 3 ? '🏆' : '🎉'}`;
+    document.getElementById('complete-text').textContent =
+      lvl === 3
+        ? 'You\'ve mastered Tic Tac Toe! You play with perfect strategy.'
+        : `Great work! Level ${nextLvl} (${LEVEL_META[nextLvl].name}) is now unlocked.`;
+
+    const nextBtn = document.getElementById('btn-next-level');
+    nextBtn.style.display = hasNext ? 'inline-block' : 'none';
+
+    showScreen('level-complete');
+  }
+
+  function goNextLevel() {
+    const next = trainingLevel + 1;
+    if (next <= 3) startLesson(next);
+  }
+
+  // ════════════════════════════════════════════
+  //  BOOT
+  // ════════════════════════════════════════════
   init();
 </script>
 </body>
